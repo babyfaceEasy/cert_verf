@@ -15,5 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function(){
+	return 'Olakunle testing';
+});
+
 Route::get('verify/{id}', 'CertController@verification')->name('verify_link');
 Route::resource('certs', 'CertController');
