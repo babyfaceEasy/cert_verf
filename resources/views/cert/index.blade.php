@@ -22,28 +22,50 @@
   </head>
   <body style="padding: 5px;">
     <h1>List of Certificates</h1>
+    <p><a href="{{route('certs.create')}}" class="btn btn-primary">Create New Document</a></p>
+    
     <table class="table stripped">
 		<tr>
-			<td>#</td>
-			<td>Full name</td>
-			<td>Matric No.</td>
-			<td>URL</td>
+			<th>#</th>
+			<th>Full Name</th>
+			<th>Matric No.</th>
+      <th>Validity</th>
+      <th></th>
 		</tr>
+    <?php
+      $counter = 0;
+     ?>
 		@foreach($certs as $cert)
 		<tr>
 			<td>{{$loop->index+1}}</td>
 			<td>{{$cert->full_name}}</td>
 			<td>{{$cert->matric_no}}</td>
-			<!--<td>{{-- encrypt($cert->id) --}}</td>-->
+			<!--<td style="" id="clipboard-text-{{-- $counter --}}">{{encrypt($cert->id)}}</td>
+      <td><button id="target-to-copy" data-clipboard-target="#clipboard-text-{{-- $counter --}}">Get URL</button></td>-->
 			<td><a href="{{route('verify_link', ['id' => encrypt($cert->id)])}}">Check Authencity</a></td>
+      <td>
+        <button id="copy-url" class="btn" data-clipboard-text="{{route('verify_link', ['id' => encrypt($cert->id)])}}">Copy URL to Clipboard</button>
+      </td>
 		</tr>
+    <?php $counter++; ?>
 		@endforeach
 	</table>
+
+
+  <!-- this is to output the links -->
+  {{$certs->links()}}
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="{{asset('js/clipboard.min.js')}}" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      new Clipboard('#copy-url');
+    });
+  </script>
   </body>
 </html>

@@ -16,7 +16,7 @@ class CertController extends Controller
      */
     public function index()
     {
-        $certs = Cert::paginate(5);
+        $certs = Cert::paginate(10);
         return view('cert.index', compact('certs'));
     }
 

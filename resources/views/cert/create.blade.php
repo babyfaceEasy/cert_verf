@@ -51,6 +51,7 @@
 
 		
 		<button type="submit" class="btn btn-primary">Generate Key</button>
+		<a href="{{route('certs.index')}}"  class="btn btn-default">Go Back / Cancel</a href="{{route('certs.index')}}">
 		
 	</form>
 
